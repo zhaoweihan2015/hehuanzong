@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import "./index.css"
-import HeroInfoPanel from "../../components/HeroProfile";
+import HeroInfoPanel from "../components/HeroProfile";
 
 const Layout: React.FC = () => {
   return (
