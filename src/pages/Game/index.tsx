@@ -1,21 +1,53 @@
 import React, { useState, useRef, useEffect } from "react";
+import useHero from "../../hooks/hero";
+import useGameState from "../../hooks/world";
+import events from "../../data/event";
+import { handleOptionText, handleText } from "./utils";
 import "./index.css"; // 引入样式文件
+import "./text.css";
+import { EventOption } from "../../data/event/type";
+import classNames from "classnames";
+import HeroInfoPanel from "../../components/HeroProfile";
 
 const Game: React.FC = () => {
-  const [text, setText] = useState<string>(
-    "欢迎来到文字冒险游戏！<br/>请选择一个选项："
-  );
-  const [options] = useState<string[]>(["选项1", "选项2", "选项3"]);
-  const textBoxRef = useRef<HTMLDivElement>(null); // 创建引用
+  const { hero, updateHero } = useHero();
+  const { gameState, updateGameState } = useGameState();
 
-  const handleOptionClick = (option: string, clearScreen: boolean = false) => {
-    setText((prevText) =>
-      clearScreen
-        ? `你选择了：${option}<br/>继续冒险...`
-        : `${prevText}<br/><br/>你选择了：${option}<br/>继续冒险...`
-    );
+  const [text, setText] = useState<React.ReactElement[]>([]);
+  const [options, setOptions] = useState<any[]>([]);
+
+  const handleOptionClick = (option: EventOption) => {
+    if (option && option.enable(hero)) {
+      const result = option.happen(hero);
+      updateHero(result.hero);
+
+      updateGameState({
+        eventId: result.nextEvent,
+      });
+    }
   };
 
+  useEffect(() => {
+    const currentEvent = events[gameState.eventId] ?? {};
+
+    setText([...text, handleText(currentEvent, text.length)]);
+
+    setOptions(
+      currentEvent.options?.map((option, index) => (
+        <li
+          className={classNames({
+            enable: option.enable(hero),
+          })}
+          key={`option${index}`}
+          onClick={() => handleOptionClick(option)}
+        >
+          {handleOptionText(option, index)}
+        </li>
+      )) ?? []
+    );
+  }, [gameState.eventId]);
+
+  const textBoxRef = useRef<HTMLDivElement>(null); // 创建引用
   useEffect(() => {
     // 当文本更新时，滚动到最底部
     if (textBoxRef.current) {
@@ -25,22 +57,15 @@ const Game: React.FC = () => {
 
   return (
     <div className="game-container">
-      <div
-        className="text-box"
-        ref={textBoxRef}
-        dangerouslySetInnerHTML={{ __html: text }}
-      />
-      <ul className="options">
-        {options.map((option, index) => (
-          <li
-            key={index}
-            onClick={() => handleOptionClick(option)}
-            style={{ cursor: "pointer" }}
-          >
-            {option}
-          </li>
+      {gameState.eventId}
+
+      <HeroInfoPanel />
+      <div className="text-box" ref={textBoxRef}>
+        {text.map((item, index) => (
+          <div key={`text${index}`}>{item}</div>
         ))}
-      </ul>
+      </div>
+      <ul className="options">{options}</ul>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { useState } from 'react';
 interface GameState {
   date: string; // 当前游戏剧情内的日期
   timeOfDay: '早上' | '下午' | '晚上' | '半夜' | '凌晨'; // 当前时间状态
-  location: string; // 当前所在位置
+  eventId: string; // 当前所在位置
 }
 
 const useGameState = () => {
@@ -12,7 +12,7 @@ const useGameState = () => {
   const [gameState, setGameState] = useState<GameState>({
     date: new Date().toLocaleDateString(), // 设置当前日期
     timeOfDay: '早上', // 默认时间状态
-    location: '起始地点', // 默认位置
+    eventId: '0', // 默认位置
   });
 
   // 更新游戏状态

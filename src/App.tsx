@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Layout from "./layout";
+import Layout from "./pages/layout";
 import Start from "./pages/Start";
 import Game from "./pages/Game";
 

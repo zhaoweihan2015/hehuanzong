@@ -1,0 +1,1 @@
+import { EventInfo } from "../type";
