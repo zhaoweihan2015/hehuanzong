@@ -1,0 +1,21 @@
+/* 进度条容器 */
+.progress-bar {
+  width: 100%;
+  background-color: #ddd; /* 背景色：灰色，表示进度为空 */
+  overflow: hidden; /* 防止进度条溢出 */
+  position: relative; /* 使子元素绝对定位 */
+}
+
+/* 进度条填充部分 */
+.progress-bar-fill {
+  transition: width 0.5s ease-in-out; /* 使进度变化平滑 */
+}
+
+/* 显示数字的样式 */
+.progress-bar span {
+  position: absolute; /* 绝对定位 */
+  right: 10px; /* 距离右侧10px */
+  top: 50%; /* 垂直居中 */
+  transform: translateY(-50%); /* 使其完全居中 */
+  color: white; /* 字体颜色 */
+}

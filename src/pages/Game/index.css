@@ -1,0 +1,27 @@
+.text-box {
+  flex: 1; /* 使文本框填满剩余空间 */
+  overflow-y: auto; /* 允许垂直滚动 */
+}
+
+.options {
+border-top: 1px solid #ccc;
+  height: auto; /* 高度自适应 */
+  display: flex; /* 使用flex布局 */
+  flex-direction: column; /* 垂直排列选项 */
+  align-items: left; /* 垂直居中对齐 */
+  padding-top: 20px; /* 添加顶部间距 */
+}
+
+.game-container {
+  display: flex; /* 使用flex布局 */
+  flex-direction: column; /* 垂直排列子元素 */
+  height: calc(100vh - 80px); /* 使容器高度为视口高度减去选项框高度 */
+  padding: 20px; /* 内边距 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+@media (min-width: 1200px) {
+  .game-container {
+    height: calc(100vh - 80px - 100px); /* 减去footer的高度 */
+  }
+}
