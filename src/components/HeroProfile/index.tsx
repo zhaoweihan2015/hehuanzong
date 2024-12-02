@@ -1,21 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ProgressBar from "@components/ProgressBar";
 import { useLocation } from "react-router-dom";
 import useHero from "../../hooks/hero";
-import useGameState from "../../hooks/world";
 
 const HeroInfoPanel: React.FC = () => {
   const { hero } = useHero();
-  const { gameState } = useGameState();
   const location = useLocation();
-
-  useEffect(() => {
-    console.log(hero, '??');
-  }, [hero, gameState.eventId]);
 
   return (
     <div className="hero-info-panel">
-      {gameState.eventId}
       {location.pathname === "/" ? (
         <h2>欢迎！</h2>
       ) : (

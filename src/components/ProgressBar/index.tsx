@@ -18,6 +18,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   height = "20px", // 默认高度
   borderRadius = "10px", // 默认圆角
 }) => {
+  
   // 计算进度百分比
   const percentage = (currentValue / maxValue) * 100;
 

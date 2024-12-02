@@ -7,7 +7,6 @@ import "./index.css"; // 引入样式文件
 import "./text.css";
 import { EventOption } from "../../data/event/type";
 import classNames from "classnames";
-import HeroInfoPanel from "../../components/HeroProfile";
 
 const Game: React.FC = () => {
   const { hero, updateHero } = useHero();
@@ -57,9 +56,6 @@ const Game: React.FC = () => {
 
   return (
     <div className="game-container">
-      {gameState.eventId}
-
-      <HeroInfoPanel />
       <div className="text-box" ref={textBoxRef}>
         {text.map((item, index) => (
           <div key={`text${index}`}>{item}</div>

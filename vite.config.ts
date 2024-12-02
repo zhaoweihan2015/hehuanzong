@@ -11,5 +11,8 @@ export default defineConfig({
       '@components': path.resolve(__dirname, './src/components'), // 设置其他别名
       '@hooks': path.resolve(__dirname, './src/hooks'),
     }
+  },
+  server: {
+    open: true,
   }
 })
